@@ -1,5 +1,7 @@
 import platform
+
 import torch
+
 
 def snapshot_env() -> dict:
     out = {
@@ -8,8 +10,10 @@ def snapshot_env() -> dict:
     }
 
     if torch.cuda.is_available():
-        out.update({
-            "cuda_version": torch.version.cuda,
-            "gpu": torch.cuda.get_device_name(0),
-        })
+        out.update(
+            {
+                "cuda_version": torch.version.cuda,
+                "gpu": torch.cuda.get_device_name(0),
+            }
+        )
     return out

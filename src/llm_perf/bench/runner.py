@@ -1,11 +1,12 @@
 import torch
-from typing import List
-from ..utils.io import make_run_paths
-from .reporters import JsonlReporter
+
 from ..backends.hf import HFBackend
-from .timing import cuda_timer
-from .metrics import compute_sample, percentile
 from ..utils.env import snapshot_env
+from ..utils.io import make_run_paths
+from .metrics import compute_sample, percentile
+from .reporters import JsonlReporter
+from .timing import cuda_timer
+
 
 def run():
     paths = make_run_paths()
@@ -29,8 +30,8 @@ def run():
     for _ in range(warmup_n):
         backend.generate(inputs=inputs, max_new_tokens=16)
 
-    times: List[float] = []
-    tok_s_list: List[float] = []
+    times: list[float] = []
+    tok_s_list: list[float] = []
 
     for s in range(repeats):
         print(f"Run {s+1}/{repeats}")
@@ -44,18 +45,21 @@ def run():
         times.append(sample.dt)
         tok_s_list.append(sample.tok_s)
 
-        reporter.log({
-            **backend.info(),
-            **snapshot_env(),
-            "prompt_len": prompt_len,
-            "new_tokens": new_tokens,
-            "tok_s": sample.tok_s,
-            "dt": sample.dt,
-            "peak_memory_allocated_gb": sample.peak_memory_gb,
-        })
+        reporter.log(
+            {
+                **backend.info(),
+                **snapshot_env(),
+                "prompt_len": prompt_len,
+                "new_tokens": new_tokens,
+                "tok_s": sample.tok_s,
+                "dt": sample.dt,
+                "peak_memory_allocated_gb": sample.peak_memory_gb,
+            }
+        )
 
     print(f"times p50={percentile(times, 50):.4f}s  p95={percentile(times, 95):.4f}s")
     print(f"tok/s p50={percentile(tok_s_list, 50):.4f}  p95={percentile(tok_s_list, 95):.4f}")
+
 
 if __name__ == "__main__":
     run()

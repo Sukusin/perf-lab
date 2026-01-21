@@ -12,3 +12,4 @@ weights
 results/raw/*
 results/plots/*
 results/reports/*
+.ruff_cache

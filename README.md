@@ -1,7 +1,7 @@
 
 # llm-perf-lab
 
-Небольшой и воспроизводимый бенчмарк для LLM-инференса на GPU (пока: HuggingFace Transformers backend).  
+Небольшой и воспроизводимый бенчмарк для LLM-инференса на GPU (пока: HuggingFace Transformers backend).
 Считает **TTFT**, **TPOT**, **tok/s**, **p50/p95** и пишет результаты в `results/raw/<run_id>/per_run.jsonl`.
 
 ## Что умеет
@@ -174,4 +174,3 @@ uv pip install -e . --reinstall
 * Добавить backend: `src/llm_perf/backends/vllm.py` / `trtllm.py`
 * Добавить sweep-конфиги и генерацию сетки экспериментов
 * Добавить агрегацию результатов (`analysis/aggregate.py`) и графики (`analysis/plots.py`)
-
