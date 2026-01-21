@@ -1,0 +1,8 @@
+model: "qwen3_4b"
+backend: "hf"
+warmup: 2
+repeats: 5
+
+cases:
+  - prompt: "Who are you?"
+    new_tokens: 32
