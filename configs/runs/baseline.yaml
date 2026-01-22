@@ -1,8 +1,14 @@
 model: "qwen3_4b"
 backend: "hf"
+dtype: "float16"
 warmup: 2
-repeats: 5
+repeats: 2
+local_files_only: True
 
 cases:
+  - prompt: "Who are you?"
+    new_tokens: 32
+  - prompt: "Who are you?"
+    new_tokens: 32
   - prompt: "Who are you?"
     new_tokens: 32
