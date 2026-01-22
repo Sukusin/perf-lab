@@ -1,13 +1,18 @@
+from pathlib import Path
+
 import typer
 
 app = typer.Typer(no_args_is_help=True)
 
-# @app.command()
-# def run(
-#     config: Path = typer.Option(..., "-c", "--config", exists=True, readable=True),
-#     models: Path = typer.Option("configs/models.yaml", exists=True, readable=True)
-# ):
-#     run_from
+
+@app.command()
+def run(
+    run_config: Path = typer.Option(..., "-c", "--run-config", exists=True, readable=True),
+    models_config: Path = typer.Option("configs/models.yaml", exists=True, readable=True),
+):
+    from .bench.runner_config import run_from_config
+
+    run_from_config(run_path=run_config, models_path=models_config)
 
 
 @app.command()
