@@ -13,3 +13,5 @@ results/raw/*
 results/plots/*
 results/reports/*
 .ruff_cache
+test.py
+test_send.py
